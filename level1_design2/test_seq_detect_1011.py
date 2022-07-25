@@ -20,17 +20,29 @@ async def test_seq_bug1(dut):
 
     # reset
     dut.reset.value = 1
-    await FallingEdge(dut.clk)  
+    await RisingEdge(dut.clk)  
     dut.reset.value = 0
-    await FallingEdge(dut.clk)
+    await RisingEdge(dut.clk)
 
     cocotb.log.info('#### CTB: Mine Test!! ######')
-    #Asigno valor de entrada, de prueba
+    #Asigno valor de entrada, bit 0
     dut.inp_bit.value = 1 
-    await Timer(2,units='ns') #Aca espero a que se cargue en .v
+    await RisingEdge(dut.clk) #Tiempo de carga al Hardw
 
+    
     print('\n########## VALORES ########## \n')
     print('\nENTRADA: ',dut.inp_bit.value)
 
     #Checkeo Salida
     print('\nSALIDA: ',format(dut.seq_seen.value) )
+    print('\nESTADO ACTUAL}', format(dut.current_stat.value))
+
+    # #Asigno valor de entrada, bit 1
+    # dut.inp_bit.value = 0 
+    # await Timer(10,units='ns') #Tiempo de carga al Hardw
+    # #Asigno valor de entrada, bit 2
+    # dut.inp_bit.value = 1 
+    # # await Timer(10,units='ns') #iempo de carga al Hardw
+    # #Asigno valor de entrada, bit 3
+    # dut.inp_bit.value = 1 
+    # await Timer(10,units='ns') #iempo de carga al Hardw
