@@ -7,6 +7,7 @@ import random
 from pathlib import Path
 
 import cocotb
+from cocotb.triggers import Timer
 from cocotb.clock import Clock
 from cocotb.triggers import RisingEdge, FallingEdge
 
@@ -23,4 +24,13 @@ async def test_seq_bug1(dut):
     dut.reset.value = 0
     await FallingEdge(dut.clk)
 
-    cocotb.log.info('#### CTB: Develop your test here! ######')
+    cocotb.log.info('#### CTB: Mine Test!! ######')
+    #Asigno valor de entrada, de prueba
+    dut.inp_bit.value = 1 
+    await Timer(2,units='ns') #Aca espero a que se cargue en .v
+
+    print('\n########## VALORES ########## \n')
+    print('\nENTRADA: ',dut.inp_bit.value)
+
+    #Checkeo Salida
+    print('\nSALIDA: ',format(dut.seq_seen.value) )
