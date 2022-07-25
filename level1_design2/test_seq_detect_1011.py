@@ -45,4 +45,4 @@ async def test_seq_bug1(dut):
     # # await Timer(10,units='ns') #iempo de carga al Hardw
     # #Asigno valor de entrada, bit 3
     # dut.inp_bit.value = 1 
-    # await Timer(10,units='ns') #iempo de carga al Hardw
+    # await Timer(10,units='ns') #iempo de carga al Hardw https://www.chipverify.com/verilog/verilog-sequence-detector
