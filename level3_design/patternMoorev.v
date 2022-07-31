@@ -3,7 +3,11 @@ module patternMoorev(
     input logic reset,
     input logic a,
     output logic y);
-    parameter [1:0] S0, S1, S2;
+
+    parameter S0 = 3'b000;
+    parameter S1 = 3'b001;
+    parameter S2 = 3'b010;
+
     reg state, nextstate;
     // state register
     always @(posedge clk, posedge reset)
@@ -24,5 +28,9 @@ module patternMoorev(
         end
     end
     // output logic
-    assign y = (state = = S2);
+    always @(*)
+    begin
+        if(state == S2)
+            assign y = 1;
+    end
 endmodule

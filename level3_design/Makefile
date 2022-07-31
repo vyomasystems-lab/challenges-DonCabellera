@@ -1,6 +1,6 @@
 # See LICENSE.vyoma for details
 
-TOPLEVEL_LANG ?= Systemverilog
+TOPLEVEL_LANG ?= verilog
 
 PWD=$(shell pwd)
 
