@@ -15,7 +15,7 @@ from cocotb.triggers import RisingEdge, FallingEdge
 async def test_seq_bug1(dut):
     """Test for seq detection """
 
-    clock = Clock(dut.clk, 10, units="us")  # Create a 10us period clock on port clk
+    clock = Clock(dut.clk, 10, units="ns")  # Create a 10ns period clock on port clk
     cocotb.start_soon(clock.start())        # Start the clock
 
     # reset
@@ -28,14 +28,31 @@ async def test_seq_bug1(dut):
     #Asigno valor de entrada, bit 0
     dut.inp_bit.value = 1 
     await RisingEdge(dut.clk) #Tiempo de carga al Hardw
+    await Timer(10,units='ns')
+    #Asigno valor de entrada, bit 1
+    dut.inp_bit.value = 0 
+    await RisingEdge(dut.clk) #Tiempo de carga al Hardw
+    await Timer(10,units='ns')
+    #Asigno valor de entrada, bit 2
+    dut.inp_bit.value = 1 
+    await RisingEdge(dut.clk) #Tiempo de carga al Hardw
+    await Timer(10,units='ns')
+    #Asigno valor de entrada, bit 3
+    dut.inp_bit.value = 1 
+    await RisingEdge(dut.clk) #Tiempo de carga al Hardw
+    await Timer(10,units='ns')
+    #Asigno valor de entrada, bit 5
+    #dut.inp_bit.value = 1 
+    #await RisingEdge(dut.clk) #Tiempo de carga al Hardw
+    #await Timer(10,units='ns')
 
-    
+
     print('\n########## VALORES ########## \n')
-    print('\nENTRADA: ',dut.inp_bit.value)
+    #print('\nENTRADA: ',dut.inp_bit.value)
 
     #Checkeo Salida
     print('\nSALIDA: ',format(dut.seq_seen.value) )
-    print('\nESTADO ACTUAL}', format(dut.current_stat.value))
+    #print('\nESTADO ACTUAL}', format(dut.current_stat.value))
 
     # #Asigno valor de entrada, bit 1
     # dut.inp_bit.value = 0 
